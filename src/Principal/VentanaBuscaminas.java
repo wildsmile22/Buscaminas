@@ -4,6 +4,7 @@ package Principal;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 
 /**
@@ -19,7 +20,16 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
     int numMinas = 19;
     
     Boton [][] arrayBotones = new Boton[filas][columnas];
-            
+       
+    private void ponUnaBomba(){
+        Random r = new Random();
+       int f = r.nextInt(filas);
+       int c = r.nextInt(columnas);
+       
+       arrayBotones[f][c].bomba = 1;
+       arrayBotones[f][c].setText("B");
+    }
+    
     /**
      * Creates new form VentanaBuscaminas
      */
@@ -31,6 +41,7 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
         for (int i=0; i< filas; i++){
             for (int j=0; j< columnas; j++){
              Boton boton = new Boton(i,j);
+             boton.setBorder(null);
              //añado el evento del clic del ratón
              boton.addMouseListener(new MouseAdapter(){
                  @Override
@@ -44,6 +55,9 @@ public class VentanaBuscaminas extends javax.swing.JFrame {
              //añado el botón a la pantalla
              getContentPane().add(boton);
             }
+        }
+        for (int i=0; i<numMinas; i++){
+            ponUnaBomba();
         }
     }
 
